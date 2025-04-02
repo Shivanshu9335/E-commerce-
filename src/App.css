@@ -1,0 +1,17 @@
+
+#header{
+  color: white;
+  font: lighter ;
+}
+#ul li a {
+   font-weight: 900;
+}
+
+body{
+  user-select: none;
+}
+/* @media (min-width: 1025px) {
+.h-custom {
+height: 100vh !important;
+}
+} */
