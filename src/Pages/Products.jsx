@@ -183,91 +183,6 @@ const Products = (props) => {
             </div>
           </div>
           <nav aria-label="Page navigation  flex  example">
-            <ul className="flex flex-wrap items-center text-center  p-2 justify-center text-base">
-              <div
-                onClick={() => setcurrentPage(1)}
-                className="font-extrabold   bg-blue-300  text-3xl    mr-2"
-              >
-                <GoMoveToStart />
-              </div>
-              <li>
-                <a
-                  onClick={handlePrev}
-                  href="#"
-                  className="flex items-center justify-center px-4 h-10 ms-0 leading-tight  text-white  bg-[#000000cb]"
-                >
-                  <span className="sr-only">Previous</span>
-                  <svg
-                    className="w-3 h-3 rtl:rotate-180"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 6 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 1 1 5l4 4"
-                    />
-                  </svg>
-                </a>
-              </li>
-              {Array(noofBtn)
-                .fill(0)
-                .map((ele, i) => {
-                  return (
-                    <li className="" key={i}>
-                      <a
-                        onClick={() => setcurrentPage(i + 1)}
-                        href="#"
-                        className={`flex items-center justify-center px-4 h-10 leading-tight text-white ${
-                          currentPage === i + 1
-                            ? "bg-green-500"
-                            : "bg-[#000000cb]"
-                        } `}
-                      >
-                        {i + 1}
-                      </a>
-                    </li>
-                  );
-                })}
-              <li>
-                <a
-                  onClick={handleNext}
-                  href="#"
-                  className="flex items-center justify-center px-4 h-10 leading-tight bg-[#000000cc] text-white text-xl"
-                >
-                  <span className="sr-only text-white">Next</span>
-                  <svg
-                    className="w-3 h-3 rtl:rotate-180"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 6 10"
-                  >
-                    <path
-                      stroke="currentColor"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="m1 9 4-4-4-4"
-                    />
-                  </svg>
-                </a>
-              </li>
-              <div
-                onClick={() => setcurrentPage(noofBtn)}
-                className="font-bold text-3xl bg-blue-300 mr-2"
-              >
-                <MdStart />
-              </div>
-            </ul>
-
-
-
-            
             <div className="flex justify-center mt-4">
               {/*  ['', '', '', '', '', '','', '', '','','',''] */}
 
@@ -323,7 +238,6 @@ const Products = (props) => {
                 &rarr;
               </button>
             </div>
-            
           </nav>
         </div>
       )}
