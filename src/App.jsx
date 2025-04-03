@@ -21,7 +21,8 @@ function App() {
   // console.log(selector.Login)
   let loginVal = selector.getValue.Login
   console.log(loginVal)
- 
+  
+  // use the search values --->>>>>>
   const [searchedVal, setsearchedVal] = useState('');
   function search(ans) {
     console.log(ans);
