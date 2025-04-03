@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FaRegHeart } from "react-icons/fa";
 import { VscThreeBars } from "react-icons/vsc";
@@ -7,10 +7,22 @@ import { CiSearch } from "react-icons/ci";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Login } from "@mui/icons-material";
+import { ChangeRouter } from "../store/LoginSlice";
 
 const Navbar = ({ search }) => {
+  // use the log-out page ---->>>
   let login1 = useSelector((slice) => slice.Login);
+  console.log(login1)
   let login = (login1.getValue.Login);
+
+  let dispatch = useDispatch()
+  const handleCLick = ()=>{
+     dispatch(ChangeRouter({email:'',Login:false}));
+       localStorage.setItem(
+         "Login",
+         JSON.stringify({ email: "", Login: false })
+       );
+  }
 
   const cartItems = useSelector((state) => state.cart.cartArr.length);
   // console.log(cartItems)
@@ -92,6 +104,15 @@ const Navbar = ({ search }) => {
               </Link>
             </li>
           )}
+          {login ===true && <li>
+            <p
+              onClick={handleCLick}
+              to={"/signup"}
+              className="px-2  font-serif border-2 border-gray-300   py-1.5 bg-yellow-300 text-black rounded-lg hover:bg-yellow-400"
+            >
+            LogOut
+            </p>
+          </li>}
         </ul>
 
         {/* Mobile Menu Button */}
