@@ -28,9 +28,12 @@ const Navbar = ({ search }) => {
   // console.log(cartItems)
   const wishItems = useSelector((state) => state.wish.value.length);
 
+
+  //Responesive toggle --->>>>
   const [showMenu, setShowMenu] = useState(false);
   const inputRef = useRef();
 
+  // Search the values--->>>>
   const handleSubmit = (e) => {
     e.preventDefault();
     const searchValue = inputRef.current.value.trim();
@@ -104,15 +107,18 @@ const Navbar = ({ search }) => {
               </Link>
             </li>
           )}
-          {login ===true && <li>
-            <p
-              onClick={handleCLick}
-              to={"/signup"}
-              className="px-2  font-serif border-2 border-gray-300   py-1.5 bg-yellow-300 text-black rounded-lg hover:bg-yellow-400"
-            >
-            LogOut
-            </p>
-          </li>}
+
+          {login === true && (
+            <li>
+              <p
+                onClick={handleCLick}
+                to={"/signup"}
+                className="px-2   md:block lg:block hidde font-serif border-2 border-gray-300   py-1.5 bg-yellow-300 text-black rounded-lg hover:bg-yellow-400"
+              >
+                LogOut
+              </p>
+            </li>
+          )}
         </ul>
 
         {/* Mobile Menu Button */}
@@ -128,29 +134,48 @@ const Navbar = ({ search }) => {
       {showMenu && (
         <div className="md:hidden bg-gray-900 text-white p-4 absolute top-full w-full">
           <ul className="flex flex-col space-y-3">
-            <li>
-              <input
-                type="text"
-                placeholder="Search..."
-                className="w-full px-3 py-2 rounded bg-gray-700"
-              />
-            </li>
-            {JSON.parse(localStorage.getItem("Login")).Login === true && (
+            <form onSubmit={handleSubmit} action="">
+              <li className="bg-cyan-300 text-black rounded-2xl text-center ">
+                <input
+                  ref={inputRef}
+                  type="text"
+                  placeholder="Search..."
+                  className="bg-transparent text-center text-black py-2 rounded-2xl outline-none text-sm w-full"
+                />
+              </li>
+            </form>
+            {login === false && (
               <li>
                 <Link
                   to={"/login"}
-                  // onClick={handleClick}
-                  className="w-full px-3 py-2 bg-cyan-300 text-black rounded-lg hover:bg-cyan-400"
+                  className="px-4   font-serif  border-2 border-gray-300 py-1.5 bg-fuchsia-500 text-black rounded-lg hover:bg-cyan-400"
                 >
                   Login
                 </Link>
               </li>
             )}
-            <li>
-              <button className="w-full px-3 py-2 bg-cyan-300 text-black rounded-lg hover:bg-cyan-400">
-                Sign Up
-              </button>
-            </li>
+
+            {login === false && (
+              <li>
+                <Link
+                  to={"/signup"}
+                  className="px-2  font-serif border-2 border-gray-300   py-1.5 bg-yellow-300 text-black rounded-lg hover:bg-yellow-400"
+                >
+                  Sign Up
+                </Link>
+              </li>
+            )}
+            {login === true && (
+              <li>
+                <p
+                  onClick={handleCLick}
+                  to={"/signup"}
+                  className="px-2  font-serif border-2 border-gray-300   py-1.5 bg-yellow-300 text-black rounded-lg hover:bg-yellow-400"
+                >
+                  LogOut
+                </p>
+              </li>
+            )}
           </ul>
         </div>
       )}

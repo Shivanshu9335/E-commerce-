@@ -58,7 +58,7 @@ const Veiwdetails = () => {
             </div>
           </div>
 
-          <div className="mt-6 bg-[#ffffff21] p-5 rounded-3xl sm:mt-8 lg:mt-0">
+          <div className="mt-6  bg-[#0000004d] max-h-max pb-10  p-5 rounded-3xl sm:mt-8 lg:mt-0"> 
             <h1 className="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">
               {obj.title}
             </h1>
@@ -127,18 +127,12 @@ const Veiwdetails = () => {
                 <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
                   (5.0)
                 </p>
-                <a
-                  href="#"
-                  className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white"
-                >
-                  345 Reviews
-                </a>
               </div>
             </div>
             <div className="mt-6 sm:gap-4 sm:items-center sm:flex sm:mt-8">
               <div
                 onClick={() => dispatch(addtoWish(obj))}
-                className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-[#ffffff00] hover:bg-[#00000062] hover:text-white rounded-lg border border-gray-200"
                 role="button"
               >
                 <svg
@@ -162,7 +156,7 @@ const Veiwdetails = () => {
               </div>
               <a
                 onClick={() => dispatch(AddtoCart(obj))}
-                className="text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
+                className="text-white bg-[#0000003a] border-2 border-gray-200 hover:bg-[#00000062] hover:text-white mt-4 sm:mt-0 bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800 flex items-center justify-center"
                 role="button"
               >
                 <svg
@@ -309,6 +303,7 @@ const Veiwdetails = () => {
               </AccordionDetails>
             </Accordion>
           </div>
+
         </div>
         <div className=" p-2 text-[#f3f3f3] mt-3 ">
           <h1 className="text-center text-2xl mb-2 font-sans  font-semibold ">
