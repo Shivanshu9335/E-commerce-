@@ -105,20 +105,7 @@ const SignUp = () => {
                       required
                     />
                   </div>
-                  <div className="ml-3 text-sm">
-                    <label
-                      htmlFor="terms"
-                      className="font-light text-gray-500 dark:text-gray-300"
-                    >
-                      I accept the{" "}
-                      <a
-                        className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                        href="#"
-                      >
-                        Terms and Conditions
-                      </a>
-                    </label>
-                  </div>
+                
                 </div>
                 <button
                   onClick={(e) => handleSubmit(e)}
