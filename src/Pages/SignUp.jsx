@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {Link} form "react-router-dom"
+import { useNavigate ,Link} from "react-router-dom";
+
 const SignUp = () => {
   const [arr, setarr] = useState(JSON.parse(localStorage.getItem('arr'))||[]); ///
   let nameRef = useRef();
