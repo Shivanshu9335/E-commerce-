@@ -9,24 +9,27 @@ import { Link } from "react-router-dom";
 import { ChangeRouter } from "../store/LoginSlice";
 
 const Navbar = ({ search }) => {
-  const login1 = useSelector((slice) => slice.Login);
-  const login = login1.getValue.Login;
   const dispatch = useDispatch();
 
-  const handleCLick = () => {
-    dispatch(ChangeRouter({ email: "", Login: false }));
-    localStorage.setItem("Login", JSON.stringify({ email: "", Login: false }));
-  };
+  // Cleaner login state access
+  const loginState = useSelector((state) => state.Login);
+  const isLoggedIn = loginState.getValue?.Login || false;
 
   const cartItems = useSelector((state) => state.cart.cartArr.length);
   const wishItems = useSelector((state) => state.wish.value.length);
 
   const [showMenu, setShowMenu] = useState(false);
-  const inputRef = useRef();
+  const desktopInputRef = useRef(null);
+  const mobileInputRef = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleLogout = () => {
+    dispatch(ChangeRouter({ email: "", Login: false }));
+    localStorage.setItem("Login", JSON.stringify({ email: "", Login: false }));
+  };
+
+  const handleSubmit = (e, inputRef) => {
     e.preventDefault();
-    const searchValue = inputRef.current.value.trim();
+    const searchValue = inputRef.current?.value.trim();
     if (!searchValue) {
       return toast.warning("Please enter some text", {
         position: "top-center",
@@ -36,32 +39,33 @@ const Navbar = ({ search }) => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 shadow-md bg-[#000000] text-white">
+    <nav className="fixed top-0 left-0 right-0 z-50 shadow-md bg-black text-white">
       <div className="container mx-auto flex items-center justify-between py-3 px-4">
         {/* Logo */}
-        <Link to={"/products"} className="text-2xl font-semibold">
+        <Link to="/products" className="text-2xl font-semibold">
           Ecom-Shop
         </Link>
 
-        {/* Search Bar */}
+        {/* Desktop Search Bar */}
         <form
-          onSubmit={handleSubmit}
+          onSubmit={(e) => handleSubmit(e, desktopInputRef)}
           className="hidden md:flex items-center border px-3 py-2 rounded"
         >
           <input
-            ref={inputRef}
+            ref={desktopInputRef}
             type="text"
             placeholder="Search..."
             className="bg-transparent outline-none text-sm w-full"
+            aria-label="Search products"
           />
-          <button type="submit" className="text-gray-300">
+          <button type="submit" className="text-gray-300" title="Search">
             <CiSearch size={20} />
           </button>
         </form>
 
-        {/* Icons and Buttons */}
+        {/* Icons and Auth Links */}
         <ul className="flex items-center space-x-6">
-          <Link to={"/wish"} className="relative">
+          <Link to="/wish" className="relative" title="Wishlist">
             <FaRegHeart size={24} className="text-indigo-200" />
             {wishItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs px-1 rounded-full">
@@ -69,7 +73,8 @@ const Navbar = ({ search }) => {
               </span>
             )}
           </Link>
-          <Link to={"/cart"} className="relative">
+
+          <Link to="/cart" className="relative" title="Cart">
             <AiOutlineShoppingCart size={26} className="text-indigo-200" />
             {cartItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-blue-600 text-white text-xs px-1 rounded-full">
@@ -78,12 +83,12 @@ const Navbar = ({ search }) => {
             )}
           </Link>
 
-          {/* Show Login/Signup on large screens */}
-          {login === false && (
+          {/* Desktop Login/Signup */}
+          {!isLoggedIn && (
             <>
               <li className="hidden md:block">
                 <Link
-                  to={"/login"}
+                  to="/login"
                   className="px-4 font-serif border-2 border-gray-300 py-1.5 bg-fuchsia-500 text-black rounded-lg hover:bg-cyan-400"
                 >
                   Login
@@ -91,7 +96,7 @@ const Navbar = ({ search }) => {
               </li>
               <li className="hidden md:block">
                 <Link
-                  to={"/signup"}
+                  to="/signup"
                   className="px-2 font-serif border-2 border-gray-300 py-1.5 bg-yellow-300 text-black rounded-lg hover:bg-yellow-400"
                 >
                   Sign Up
@@ -100,11 +105,11 @@ const Navbar = ({ search }) => {
             </>
           )}
 
-          {/* Show Logout on large screen only */}
-          {login === true && (
+          {/* Desktop Logout */}
+          {isLoggedIn && (
             <li className="hidden md:block">
               <p
-                onClick={handleCLick}
+                onClick={handleLogout}
                 className="px-2 font-serif border-2 border-gray-300 py-1.5 bg-yellow-300 text-black rounded-lg hover:bg-yellow-400 cursor-pointer"
               >
                 LogOut
@@ -113,10 +118,11 @@ const Navbar = ({ search }) => {
           )}
         </ul>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Toggle */}
         <button
           className="md:hidden text-3xl"
           onClick={() => setShowMenu(!showMenu)}
+          aria-label="Toggle menu"
         >
           <VscThreeBars />
         </button>
@@ -126,23 +132,30 @@ const Navbar = ({ search }) => {
       {showMenu && (
         <div className="md:hidden bg-gray-900 text-white p-4 absolute top-full w-full">
           <ul className="flex flex-col space-y-3">
-            <form onSubmit={handleSubmit}>
-              <li className="bg-cyan-300 text-black rounded-2xl text-center">
+            <form onSubmit={(e) => handleSubmit(e, mobileInputRef)}>
+              <li className="relative bg-cyan-300 text-black rounded-2xl text-center">
                 <input
-                  ref={inputRef}
+                  ref={mobileInputRef}
                   type="text"
                   placeholder="Search..."
                   className="bg-transparent text-center text-black py-2 rounded-2xl outline-none text-sm w-full"
                 />
+                <button
+                  type="submit"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-black"
+                  title="Search"
+                >
+                  <CiSearch size={20} />
+                </button>
               </li>
             </form>
 
-            {/* Show Login/Signup on small screens */}
-            {login === false && (
+            {/* Mobile Auth Links */}
+            {!isLoggedIn && (
               <>
                 <li>
                   <Link
-                    to={"/login"}
+                    to="/login"
                     className="px-4 font-serif border-2 border-gray-300 py-1.5 bg-fuchsia-500 text-black rounded-lg hover:bg-cyan-400"
                   >
                     Login
@@ -150,7 +163,7 @@ const Navbar = ({ search }) => {
                 </li>
                 <li>
                   <Link
-                    to={"/signup"}
+                    to="/signup"
                     className="px-2 font-serif border-2 border-gray-300 py-1.5 bg-yellow-300 text-black rounded-lg hover:bg-yellow-400"
                   >
                     Sign Up
@@ -159,11 +172,11 @@ const Navbar = ({ search }) => {
               </>
             )}
 
-            {/* Show Logout on small screens only */}
-            {login === true && (
+            {/* Mobile Logout */}
+            {isLoggedIn && (
               <li>
                 <p
-                  onClick={handleCLick}
+                  onClick={handleLogout}
                   className="px-2 font-serif border-2 border-gray-300 py-1.5 bg-yellow-300 text-black rounded-lg hover:bg-yellow-400 cursor-pointer"
                 >
                   LogOut
