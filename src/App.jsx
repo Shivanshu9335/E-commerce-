@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./App.css";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import NavBar from "./componets/NavBar";
-import Home from "./Pages/Home";
 import Products from "./Pages/Products";
 import Wishslice from "./Pages/Wishslice";
 import { ToastContainer, toast } from "react-toastify";
@@ -37,7 +36,6 @@ function App() {
         </div>
         <div className="h-[70px] "></div>
         <Routes>
-          <Route path="/" element={ loginVal === true ? <Home/>  : <Navigate to={'/login'}/>   } />
           <Route path="/products" element={ loginVal === true ? <Products search={searchedVal}/>:  <Navigate to={'/login'}/>} />
           <Route path="/cart" element={  loginVal === true ? <Cart /> : <Navigate to={'/login'}/> } />
           <Route path="/veiw" element={  loginVal === true ? <Veiwdetails />  : <Navigate to={'/login'}/> } />
