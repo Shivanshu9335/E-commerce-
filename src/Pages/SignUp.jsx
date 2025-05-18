@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import {Link} form "react-router-dom"
 const SignUp = () => {
   const [arr, setarr] = useState(JSON.parse(localStorage.getItem('arr'))||[]); ///
   let nameRef = useRef();
@@ -105,8 +105,8 @@ const SignUp = () => {
                 </button>
                 <p className="text-sm font-light    text-white ">
                   Already have an account?{" "}
-                  <a
-                    href="#"
+                  <Link to={"/login"}
+                    
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Login here
