@@ -42,17 +42,24 @@ const Watches = (props) => {
     ],
   };
   return (
-    <Slider {...settings}>
-      {item.map((ele, i) => {
-        return (
-          <div className="bg-[#0000001c] text-center">
-            <img src={ele.thumbnail} alt="" />
-            <h1 className="lg:text-xl md:text-lg sm:text-sm text-white font-serif ">{ele.title}</h1>
-            <h1 className="text-white">${ele.price}</h1>
-          </div>
-        );
-      })}
-    </Slider>
+   <Slider {...settings}>
+  {item.map((ele, i) => {
+    return (
+      <div key={i} className="bg-[#0000001c] text-center p-4 rounded-md h-[300px] overflow-hidden">
+        <img
+          src={ele.thumbnail}
+          alt={ele.title}
+          className="h-[200px] w-auto mx-auto object-contain"
+        />
+        <h1 className="lg:text-xl md:text-lg sm:text-sm text-white font-serif mt-2">
+          {ele.title}
+        </h1>
+        <h1 className="text-white">${ele.price}</h1>
+      </div>
+    );
+  })}
+</Slider>
+
   );
 };
 
