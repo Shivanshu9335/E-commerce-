@@ -1,5 +1,7 @@
 import React from "react";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; // ✅ MUST HAVE
+import "slick-carousel/slick/slick-theme.css"; // ✅ MUST HAVE
 
 const Watches = (props) => {
   let item = props.watchItem;
@@ -7,7 +9,6 @@ const Watches = (props) => {
   var settings = {
     dots: true,
     infinite: true,
-    speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
@@ -20,8 +21,6 @@ const Watches = (props) => {
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
-          infinite: true,
-          dots: true,
         },
       },
       {
@@ -29,7 +28,6 @@ const Watches = (props) => {
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
-          initialSlide: 2,
         },
       },
       {
@@ -41,25 +39,26 @@ const Watches = (props) => {
       },
     ],
   };
-  return (
-   <Slider {...settings}>
-  {item.map((ele, i) => {
-    return (
-      <div key={i} className="bg-[#0000001c] text-center p-4 rounded-md h-[300px] overflow-hidden">
-        <img
-          src={ele.thumbnail}
-          alt={ele.title}
-          className="h-[200px] w-auto mx-auto object-contain"
-        />
-        <h1 className="lg:text-xl md:text-lg sm:text-sm text-white font-serif mt-2">
-          {ele.title}
-        </h1>
-        <h1 className="text-white">${ele.price}</h1>
-      </div>
-    );
-  })}
-</Slider>
 
+  return (
+    <Slider {...settings}>
+      {item.map((ele, i) => (
+        <div
+          key={i}
+          className="bg-[#0000001c] text-center p-4 rounded-md h-[300px] overflow-hidden"
+        >
+          <img
+            src={ele.thumbnail}
+            alt={ele.title}
+            className="h-[200px] w-auto mx-auto object-contain"
+          />
+          <h1 className="lg:text-xl md:text-lg sm:text-sm text-white font-serif mt-2">
+            {ele.title}
+          </h1>
+          <h1 className="text-white">${ele.price}</h1>
+        </div>
+      ))}
+    </Slider>
   );
 };
 
