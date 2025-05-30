@@ -1,75 +1,61 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { AddtoCart,  } from '../store/Cartsilces';
+import { AddtoCart } from '../store/Cartsilces';
 import { DeleteWish } from '../store/WishSliced';
 
 const Wishslice = () => {
-    let store = useSelector((slice) => slice.wish);
-    let dispatch = useDispatch()
+  const store = useSelector((slice) => slice.wish);
+  const dispatch = useDispatch();
 
-    console.log(store.value);
+  const handleDelete = (ele, i) => {
+    dispatch(DeleteWish(i));
+  };
 
-    // Use the the delete section--->>> 
-    const handleDelete = (ele,i)=>{
-      
-       dispatch(DeleteWish(i))
-    }
   return (
-    <div>
-      <div className="relative overflow-x-auto">
-        <table className="w-[80%] m-auto text-sm text-center rtl:text-right bg-[#000000ad] text-gray-100 ">
-          <thead className="  text-lg  uppercase">
+    <div className="p-4">
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-sm text-center bg-[#000000ad] text-gray-100 border-collapse rounded-md overflow-hidden">
+          <thead className="text-base md:text-lg uppercase bg-[#1a1a1a]">
             <tr>
-              <th scope="col" className="px- py-3">
-                S no
-              </th>
-              <th scope="col" className="px-6 py-3">
-               title
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Image
-              </th>
-              <th scope="col" className="px-6 py-3">
-               Price
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Button
-              </th>
+              <th className="px-4 py-3">S no</th>
+              <th className="px-6 py-3">Title</th>
+              <th className="px-6 py-3">Image</th>
+              <th className="px-6 py-3">Price</th>
+              <th className="px-6 py-3">Action</th>
             </tr>
           </thead>
           <tbody>
-            {
-              store.value.map((ele,i)=>{
-                return (
-                  <tr className="bg-[#ffffff0c] border-b border-gray-200">
-                    <th
-                      scope="row"
-                      className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            {store.value.map((ele, i) => (
+              <tr key={i} className="bg-[#ffffff0c] border-b border-gray-700">
+                <td className="px-4 py-3">{i + 1}</td>
+                <td className="px-6 py-3">{ele.title}</td>
+                <td className="px-6 py-3">
+                  <img src={ele.thumbnail} alt={ele.title} className="w-16 h-16 object-cover rounded" />
+                </td>
+                <td className="px-6 py-3">${ele.price}</td>
+                <td className="px-4 py-3">
+                  <div className="flex flex-col md:flex-row justify-center items-center gap-2">
+                    <button
+                      onClick={() => dispatch(AddtoCart(ele))}
+                      className="bg-cyan-200 hover:bg-cyan-300 text-black px-3 py-1 rounded-xl text-sm"
                     >
-                      {i + 1}
-                    </th>
-                    <td className="px-6 py-4">{ele.title}</td>
-                    <td className="px-6 py-4">
-                      <img src={ele.thumbnail} className="w-20" alt="" />
-                    </td>
-                    <td className="px-6 py-4">$2999</td>
-                    <td className='flex gap-2 text-center justify-center items-center  h-[105px]'>
-                      <button onClick={()=>dispatch(AddtoCart(ele))} className="bg-cyan-200 hover:bg-cyan-300 rounded-2xl px-3 py-1.5 text-black">
-                        Add to cart
-                      </button>
-                      <button onClick={()=> handleDelete(ele,i)} className="bg-cyan-200 hover:bg-cyan-300 rounded-2xl px-3 py-1.5 text-black">
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
-            }
+                      Add to Cart
+                    </button>
+                    <button
+                      onClick={() => handleDelete(ele, i)}
+                      className="bg-red-200 hover:bg-red-300 text-black px-3 py-1 rounded-xl text-sm"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
     </div>
   );
-}
+};
 
-export default Wishslice
+export default Wishslice;
