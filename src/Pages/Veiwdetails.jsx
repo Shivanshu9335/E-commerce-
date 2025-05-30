@@ -146,12 +146,28 @@ const ViewDetails = () => {
           <h1 className="text-center text-2xl mb-2 font-sans font-semibold">Related Products</h1>
           <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4">
             {filteredArr.map((ele, i) => (
-              <div key={i} className="bg-[#00000059] p-4 rounded-lg text-white">
-                <img src={ele.thumbnail} alt={ele.title} className="w-full h-40 object-cover rounded mb-2" />
-                <h2 className="text-lg font-bold">{ele.title}</h2>
-                <p>${ele.price}</p>
-              </div>
-            ))}
+  <div key={i} className="bg-[#00000059] p-4 rounded-lg text-white flex flex-col items-center">
+    <img src={ele.thumbnail} alt={ele.title} className="w-full h-40 object-cover rounded mb-2" />
+    <h2 className="text-lg font-bold text-center">{ele.title}</h2>
+    <p className="mb-2">${ele.price}</p>
+    
+    <div className="flex gap-2">
+      <button
+        onClick={() => dispatch(addtoWish(ele))}
+        className="bg-transparent border border-gray-200 text-white px-3 py-1 rounded hover:bg-[#0000006a] text-sm"
+      >
+        ❤️ Wishlist
+      </button>
+      <button
+        onClick={() => dispatch(AddtoCart(ele))}
+        className="bg-[#0000003a] text-white border-2 border-gray-200 px-3 py-1 rounded hover:bg-[#00000062] text-sm"
+      >
+        🛒 Add to Cart
+      </button>
+    </div>
+  </div>
+))}
+
           </div>
         </div>
       </div>
